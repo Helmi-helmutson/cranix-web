@@ -33,7 +33,8 @@ export class UtilsService {
                 //url = 'https://192.168.2.80:444/api';
                 //url = 'https://192.168.2.81:444/api';
                 //console.log("From utils: " + url);
-                return url ;
+                //return url ;
+                return "https://test-cephalix.cephalix.eu/api"
         }
         public log(args) {
                 var dev = isDevMode();
