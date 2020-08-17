@@ -466,7 +466,7 @@ export class EductaionService {
 		this.url = `${this.hostname}/education/groups/upload`;
 		//let x = fd.getAll("name")
 		//let y = fd.get("name")	'Content-Type': "multipart/form-data",
-		//console.log("in service", x,y);,
+		console.log("data to upload is", fd);
 		const headers = new HttpHeaders({
 			'Accept': "application/json",
 			'Authorization': "Bearer " + sessionStorage.getItem('token')
