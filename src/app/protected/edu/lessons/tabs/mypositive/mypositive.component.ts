@@ -10,6 +10,7 @@ import { LanguageService } from 'src/app/services/language.service';
 import { EductaionService } from 'src/app/services/education.service';
 import { EditBTNRenderer } from 'src/app/pipes/ag-edit-renderer';
 import { GenericObjectService } from 'src/app/services/generic-object.service';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'cranix-mypositive',
@@ -30,6 +31,7 @@ export class MypositiveComponent implements OnInit {
   columnApi: ColumnApi;
   context;
 
+  myPositiveLists: Observable<PositivList[]>
   constructor(
     public authService: AuthenticationService,
     public educationService: EductaionService,
@@ -39,9 +41,11 @@ export class MypositiveComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.context = { componentParent: this };
-    this.createColumnDefs();
+   // this.context = { componentParent: this };
+   // this.createColumnDefs();
     this.readDatas();
+
+    this.myPositiveLists = this.educationService.getMyPositivLists();
   }
 
   onGridReady(params) {
@@ -50,7 +54,7 @@ export class MypositiveComponent implements OnInit {
     this.gridApi.sizeColumnsToFit();
   }
 
-  onQuickFilterChanged(quickFilter) {
+  /*onQuickFilterChanged(quickFilter) {
     this.gridApi.setQuickFilter((<HTMLInputElement>document.getElementById(quickFilter)).value);
     this.gridApi.doLayout();
   }
@@ -84,7 +88,7 @@ export class MypositiveComponent implements OnInit {
         }
       }
     }
-  }
+  }*/
 
   /**
    * Read the owned positive list.
@@ -133,11 +137,9 @@ export class MypositiveComponent implements OnInit {
    * Activate the selected positive lists in the selected room
    * @param ev 
    */
-  activate(ev: Event){
+  activate(list: PositivList){
     let ids: number[] = [];
-    for( let obj of this.gridApi.getSelectedRows() ) {
-      ids.push(obj.id);
-    }
+    ids.push(list.id)
     this.objectService.requestSent();
     let subs = this.educationService.activatePositivListInRoom(this.educationService.selectedRoomId,ids).subscribe(
       (val) => { this.objectService.responseMessage(val) },
@@ -150,7 +152,7 @@ export class MypositiveComponent implements OnInit {
    * Deactivate the selected positive lists in the selected room
    * @param ev 
    */
-  deactivate(ev: Event){
+  deactivate(list: PositivList){
     this.objectService.requestSent();
     let subs = this.educationService.deactivatePositivListInRoom(this.educationService.selectedRoomId).subscribe(
       (val) => { this.objectService.responseMessage(val) },

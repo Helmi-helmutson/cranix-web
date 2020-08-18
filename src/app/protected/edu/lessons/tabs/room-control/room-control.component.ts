@@ -111,7 +111,7 @@ export class RoomControlComponent implements OnInit, OnDestroy, AfterViewInit {
 
   selectChanged(ev) {
     console.log(`Select roomId is: ${this.selectedRoomId}`)
-
+    this.eduS.selectedRoomId = this.selectedRoomId;
    /* this.eduS.getRoomById(this.selectedRoomId)
       .pipe(takeWhile(() => this.alive))
       .subscribe(res => {

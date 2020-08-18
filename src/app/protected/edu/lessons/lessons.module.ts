@@ -39,10 +39,11 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
+    CommonModule, 
+    IonicModule,
     FormsModule,
     RouterModule.forChild(routes),
-    IonicModule,
+   
     CranixSharedModule
   ],
   declarations: [LessonsPage,RoomControlComponent,RoomDevComponent,MypositiveComponent],

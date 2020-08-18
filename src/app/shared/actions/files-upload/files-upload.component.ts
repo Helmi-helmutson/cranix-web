@@ -31,9 +31,9 @@ export class FilesUploadComponent implements OnInit {
 
   async onSubmit(object) {
 console.log('object is: ', object);
-    let fd = new FormData();
     for (let i = 0; i < this.files.length; i++) {
-      
+          let fd = new FormData();
+
       fd.append('file', this.files[i], this.files[i].name);
       fd.append('objectIds', this.actionMap.objectIds.join(","));
       if (this.objectType == "group") {
@@ -46,9 +46,9 @@ console.log('object is: ', object);
       }
       console.log("Form data");
       console.log(fd);
-      
+          this.educationController.uploadDataToObjects(fd, this.objectType);
+
     }
-    this.educationController.uploadDataToObjects(fd, this.objectType);
     this.modalController.dismiss();
   }
   onFilesAdded(files: FileList) {

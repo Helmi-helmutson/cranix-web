@@ -16,15 +16,15 @@
       <ion-fab-button><ion-icon color="danger"  name="power-outline" (click)="deactivate($event)"></ion-icon></ion-fab-button>
     </ion-fab-list>
   </ion-fab>
-  <ion-searchbar placeholder="{{'search' | translate }}" (input)="onQuickFilterChanged('quickFilterMD')" id="quickFilterMD" showCancelButton="never" class="hidden-lg hidden-xl"></ion-searchbar>
+  <!--ion-searchbar placeholder="{{'search' | translate }}" (input)="onQuickFilterChanged('quickFilterMD')" id="quickFilterMD" showCancelButton="never" class="hidden-lg hidden-xl"></ion-searchbar-->
   <ion-card>
     <ion-card-header class="hidden-xs hidden-sm hidden-md">
       <ion-row class="hidden-xs hidden-sm hidden-md">
         <ion-col size="3">
-          <ion-item>
+          <!--ion-item>
             <ion-input placeholder="{{'search' | translate }}" (input)="onQuickFilterChanged('quickFilter')" id="quickFilter">
             </ion-input>
-          </ion-item>
+          </ion-item-->
         </ion-col>
         <ion-col offset="6" size="3" class="ion-align-self-center ion-text-end hidden-xs hidden-sm hidden-md">
           <ion-button size="small" (click)="redirectToEdit($event,null)"  matTooltip="{{'Create new positive list.' | translate }}">
@@ -37,13 +37,13 @@
             <ion-icon slot="icon-only" color="success" name="power"></ion-icon>
           </ion-button>
           <ion-button size="small" (click)="deactivate($event)" matTooltip="{{'Deactivate all positive lists in the selected room.' | translate }}" [disabled]="! educationService.selectedRoomId">
-            <ion-icon slot="icon-only" color="dange" name="power"></ion-icon>
+            <ion-icon slot="icon-only" color="danger" name="power"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
     </ion-card-header>
     <ion-card-content>
-      <ag-grid-angular 
+      <!--ag-grid-angular 
         style="width: 100%; height:  100%;"
         class="{{authService.settings.agGridThema}}"
         rowSelection="multiple"
@@ -54,7 +54,22 @@
         [rowMultiSelectWithClick]="authService.settings.rowMultiSelectWithClick"
         (gridReady)="onGridReady($event)"
          id="agGridTable">
-      </ag-grid-angular>
+      </ag-grid-angular-->
+      <ion-list *ngIf="myPositiveLists">
+        <ion-item *ngFor="let list of myPositiveLists | async ">
+          <ion-icon slot="start" name="url"></ion-icon>
+          <ion-label>
+            <h2>{{ list.description }}</h2>
+            <h3>{{ list.domains }}</h3>
+          </ion-label>
+          <ion-button slot="end" size="small" (click)="activate(list)" matTooltip="{{'Activate selected positive lists in the selected room.' | translate }}">
+            <ion-icon slot="icon-only" color="success" name="power"></ion-icon>
+          </ion-button>
+          <ion-button slot="end" size="small" (click)="deactivate($event)" matTooltip="{{'Deactivate all positive lists in the selected room.' | translate }}">
+            <ion-icon slot="icon-only" color="danger" name="power"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 </ion-content>
