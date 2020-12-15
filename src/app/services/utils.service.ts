@@ -5,6 +5,14 @@ import { isDevMode } from '@angular/core';
 @Injectable()
 export class UtilsService {
 
+        public okBrowser: boolean = true;
+        constructor() {
+                let tmp = window.navigator.userAgent
+                if (tmp.indexOf("Mozilla") != -1 && tmp.indexOf("Windows") != -1) {
+                        this.okBrowser = false;
+                }
+        }
+
         public hostName(): string{
                 var hostname = window.location.hostname;
                 var protocol = window.location.protocol;
@@ -33,7 +41,7 @@ export class UtilsService {
                 //url = 'https://192.168.2.80:444/api';
                 //url = 'https://192.168.2.81:444/api';
                 //console.log("From utils: " + url);
-		return "https://test-cephalix.cephalix.eu/api" ;
+                return "https://test-cephalix.cephalix.eu/api";
         }
         public log(args) {
                 var dev = isDevMode();
